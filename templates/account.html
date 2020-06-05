@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Home Account</title>
+    
+</head>
+<body>
+    
+    <div class="wrapper">
+       
+        <div class="account_header">
+            <h1>Hello {{ session['name'] }}!</h1>
+        </div>
+        {% with messages = get_flashed_messages() %}     
+            {% if messages %}                            
+                {% for message in messages %}            
+                    <p>{{message}}</p>                   
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <div class="form">
+            <h2>Applied to:</h2>
+            <form action="/on_applied" method="POST">
+                <p>Company: <input type ="text" name="company_name"></p>
+                <p>Position: <input type ="text" name="position"></p>
+                <p>Platform: <input type ="text" name="platform"></p>
+                <p>Link: <input type ="text" name="link"></p>
+                <input type="submit" value="Applied">
+                <a href ="/on_logout">|logout|</a>
+            </form>
+        </div>
+        <br>
+        <div class = "table">
+            <table>
+                <tr>
+                    <th>Company</th>
+                    <th>Position</th>
+                    <th>Platform</th>
+                    <th>Link</th>
+                    <th>Date</th>
+                </tr>
+                {% for job in jobs %}
+                <tr>
+                    <td>{{job['company_name']}}</td>
+                    <td>{{job['position']}}</td>
+                    <td>{{job['platform']}}</td>
+                    <td>{{job['company_link']}}</td>
+                    <td>{{job['created_at']}}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+        
+        
+</body>
+</html>
